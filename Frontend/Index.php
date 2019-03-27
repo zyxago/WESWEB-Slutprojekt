@@ -1,19 +1,31 @@
 <?php
-require "Header.html";
-require "D:\Dokument\GitHub\WESWEB-Slutprojekt\Backend\ConnectDB\Connect.php"
-//if()Om man är inloggad:
-echo "  <nav>
-			<a href="WriteArticle.php">Skriv en artikel</a>
-			<a href="UserPage.php">Mian Uppgifter</a>
-			<a href="">Logga ut</a>
-		</nav>"
-else {
-	echo "<nav>
-			<a href="LoginOrRegister">Registrera</a>
-			<a href="LoginOrRegister">Logga in</a>
-		  </nav>"
-}
+require "D:\Dokument\GitHub\WESWEB-Slutprojekt\Backend\ConnectDB\Connect.php";
+session_start();
+//Hämta alla artiklar och kommentarer, spara de sen i arrayer som sedans skrivs ut i <main>
+$sql = ""
+?>
+<!DOCTYPE html>
 
-
-//Ska komma i slutet på sidan
-require "Footer.html";
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <title>Fantastiska Forumet</title>
+    <link href="D:\Dokument\GitHub\WESWEB-Slutprojekt\Frontend\CSS\cssStyleSheet.css" rel="stylesheet">
+</head>
+<body>
+	<div class="wrapper">
+		<?php
+		require "D:\Dokument\GitHub\WESWEB-Slutprojekt\Templates\Header.html";
+		require "D:Dokument\GitHub\WESWEB-Slutprojekt\Templates\Nav.php";
+		?>
+		<main>
+			<article>
+			
+			</article>
+		</main>
+		
+	<?php
+	require "D:\Dokument\GitHub\WESWEB-Slutprojekt\Templates\Footer.html";
+	?>
+	</div>
+</body>

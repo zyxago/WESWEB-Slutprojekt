@@ -1,1 +1,19 @@
 /* All css till websida ska ligga här */
+
+.wrapper {
+	padding-left: 5vw;
+	padding-right: 5vw;
+	background-color: rgb(255, 230, 179);
+}
+
+nav a {
+	
+}
+
+.NotLoggedIn {
+	padding-left: 80vw;
+}
+
+.RegisterOrLogin {
+	padding-left: 50vw;
+}
