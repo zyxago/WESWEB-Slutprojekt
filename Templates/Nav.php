@@ -1,10 +1,10 @@
 <?php
 //om man är på framsidan och inloggad:
-if(1 == 2) {
-	echo '  <nav>
+if(1 == 11) {
+	echo '  <nav class="LoggedIn">
 				<a href="WriteArticle.php">Skriv en artikel</a>
 				<a href="UserPage.php">Mina Uppgifter</a>
-				<a href="">Logga ut</a>
+				<a href="Index.php?intent=out">Logga ut</a>
 			</nav>';
 	}
 	//om man är på framsidan fast ej inloggad

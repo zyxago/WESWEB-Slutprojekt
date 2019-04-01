@@ -6,12 +6,12 @@
 	background-color: rgb(255, 230, 179);
 }
 
-nav a {
-	
+.LoggedIn {
+	padding-left: 25vw;
 }
 
 .NotLoggedIn {
-	padding-left: 80vw;
+	padding-left: 70vw;
 }
 
 .RegisterOrLogin {
