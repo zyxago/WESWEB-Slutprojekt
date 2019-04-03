@@ -1,6 +1,7 @@
 <?php
 require "Connect\Connect.php";
 session_start();
+$_SESSION["site"] = "index";
 //Hämta alla artiklar och kommentarer, spara de sen i arrayer som sedans skrivs ut i <main>
 $sql = ""
 ?>
