@@ -2,8 +2,11 @@
 require "Connect\Connect.php";
 session_start();
 $_SESSION["site"] = "index";
+if(!empty($_GET["intent"]) && $_GET["intent"] == "out") {
+	unset($_SESSION["user"]);
+	header("Location: index.php");
+}
 //Hämta alla artiklar och kommentarer, spara de sen i arrayer som sedans skrivs ut i <main>
-$sql = ""
 ?>
 <!DOCTYPE html>
 

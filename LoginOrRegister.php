@@ -1,5 +1,6 @@
 <?php
 require "Connect\Connect.php";
+session_start();
 $_SESSION["site"] = "LogOrReg";
 if(!empty($_GET["action"])) {
 	if($_GET["action"] == "register") {
@@ -54,10 +55,10 @@ if(!empty($_GET["action"])) {
 <head>
     <meta charset="utf-8">
     <title>Logga in eller Registrera</title>
-    <link href="Frontend\CSS\cssStyleSheet.css" rel="stylesheet">
+    <link href="CSS\cssStyleSheet.css" rel="stylesheet">
 </head>
 <body id="">
-	<div id="wrapper">
+	<div class="wrapper">
 		<?php
 		require "Templates\Header.html";
 		require "Templates\Nav.php";

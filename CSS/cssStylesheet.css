@@ -1,28 +1,32 @@
 /* All css till websida ska ligga här */
-
 .wrapper {
 	padding-left: 5vw;
 	padding-right: 5vw;
+	height: 90vh;
 	background-color: rgb(255, 230, 179);
+}
+.write form{
+	padding-left: 15vw;
 }
 
 nav li{
 	float: left;
+	list-style-type: none;
 }
-
+nav li a{
+	border: solid black 2px;
+}
 nav.LoggedIn li{
 	padding-left: 20vw;
 	
 }
-
 nav.NotLoggedIn li{
-	padding-left: 70vw;
+	padding-left: 30vw;
 }
-
 nav.RegisterOrLogin li{
-	padding-left: 50vw;
+	padding-left: 20vw;
 }
-
 footer {
-	
+	position: absolute;
+	bottom: 12vh;
 }
