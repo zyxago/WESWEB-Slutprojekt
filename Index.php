@@ -1,12 +1,22 @@
 <?php
 require "Connect\Connect.php";
-session_start();
 $_SESSION["site"] = "index";
 if(!empty($_GET["intent"]) && $_GET["intent"] == "out") {
 	unset($_SESSION["user"]);
 	header("Location: index.php");
 }
-//Hämta alla artiklar och kommentarer, spara de sen i arrayer som sedans skrivs ut i <main>
+$n = 0;
+$articles = array(array("text"), array("score"));
+$sql = "SELECT *
+		FROM article";
+$result = $conn->query($sql);
+if (mysqli_num_rows($result) > 0) {
+	while($row = mysqli_fetch_assoc($result)) {
+		$articles["text"][$n] = $row["articleText"];
+		$articles["score"][$n] = $row["points"];
+		$n++;
+	}
+}
 ?>
 <!DOCTYPE html>
 
@@ -23,9 +33,14 @@ if(!empty($_GET["intent"]) && $_GET["intent"] == "out") {
 		require "Templates\Nav.php";
 		?>
 		<main>
-			<article>
-			
-			</article>
+			<?php
+				for($i = 0; $i < $n; $i++) {
+					echo "<article>
+						<p>{$articles["text"][$i]}</p>
+						<p>Score: {$articles["score"][$i]}</p>
+						</article>";
+				}
+			?>
 		</main>
 		
 	<?php

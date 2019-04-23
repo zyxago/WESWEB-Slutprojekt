@@ -1,27 +1,39 @@
 <?php
 require "Connect\Connect.php";
 $_SESSION["site"] = "write";
-if(!empty($_POST["text"])) {//TODO FIXA ALL SQL
-	if($sql = mysqli_prepare($conn, "INSERT INTO article(, password)
-			VALUES (?, ?, ?)")) {
-				mysqli_stmt_bind_param($sql, "sss", $username, $email, $password);
+if(!empty($_POST["text"])) {
+$user = $_SESSION["user"];
+$articleText = $_POST["text"];
+	$sql = "SELECT ID
+			FROM users
+			WHERE '$user' = username";
+	$result = $conn->query($sql);
+	if (mysqli_num_rows($result) > 0) {
+		while($row = mysqli_fetch_assoc($result)) {
+			$userID = $row["ID"];
+		}
+	}
+	if($sql = mysqli_prepare($conn, "INSERT INTO article(userID, articleText)
+			VALUES (?, ?)")) {
+				mysqli_stmt_bind_param($sql, "ss", $userID, $articleText);
 				if(mysqli_stmt_execute($sql)) {
-					echo "New user registerd! :)";
+					echo "New article added";
 				}
 				else {
-					echo "Could not creat new user :(";
+					echo $conn->error;
 				}
 				mysqli_stmt_close($sql);
+	}
 }
 ?>
 <!DOCTYPE html>
 <html lang="sv">
 <head>
     <meta charset="utf-8">
-    <title>Logga in eller Registrera</title>
+    <title>Skriv artikel</title>
     <link href="CSS\cssStyleSheet.css" rel="stylesheet">
 </head>
-<body id="">
+<body>
 	<div class="wrapper">
 		<?php
 		require "Templates\Header.html";
@@ -29,13 +41,14 @@ if(!empty($_POST["text"])) {//TODO FIXA ALL SQL
 		?>
 		<main class="write">
 			<form action="WriteArticle.php" method="post">
-				<textarea placeholder="Skriv artikeln här" id="text" name="text" rows="40" cols="150" required></textarea><br><br>
-				<input type="submit">
+				<textarea placeholder="Skriv artikeln här" name="text" rows="40" cols="150" required></textarea><br><br>
+				<input type="submit" value="Submit">
 			</form>
 		</main>
-	</div>
+		<?php
+		//Ska komma i slutet på sidan
+		require "Templates\Footer.html";
+		?>
+  </div>
 </body>
-<?php
-//Ska komma i slutet på sidan
-require "Templates\Footer.html";
-?>
+</html>

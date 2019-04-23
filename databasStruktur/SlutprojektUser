@@ -1,0 +1,3 @@
+GRANT USAGE ON *.* TO 'SlutprojektUser'@'localhost' IDENTIFIED BY PASSWORD '*07B27511ACBB382EC1B2CB87ACB5D3A3AB0A8228';
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON `slutprojekt`.* TO 'SlutprojektUser'@'localhost';
