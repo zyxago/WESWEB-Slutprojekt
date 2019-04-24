@@ -40,6 +40,7 @@ $articleText = $_POST["text"];
 		require "Templates\Nav.php";
 		?>
 		<main class="write">
+			<p>Skriv artikel här</p>
 			<form action="WriteArticle.php" method="post">
 				<textarea placeholder="Skriv artikeln här" name="text" rows="40" cols="150" required></textarea><br><br>
 				<input type="submit" value="Submit">

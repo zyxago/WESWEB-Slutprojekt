@@ -1,8 +1,7 @@
 /* All css till websida ska ligga här */
 .wrapper {
-	padding-left: 5vw;
-	padding-right: 5vw;
-	height: 95vh;
+	margin-left: 1vw;
+	margin-right: 1vw;
 	background-color: rgb(255, 230, 179);
 }
 nav{
@@ -14,13 +13,12 @@ nav li{
 	margin-left: 20vw;
 	border: solid black 2px;
 }
-nav li a{
-	text-decoration: none;
-}
 nav.NotLoggedIn li{
 	margin-left: 30vw;
 }
-
+nav li a{
+	text-decoration: none;
+}
 .write form{
 	padding-left: 15vw;
 }
@@ -32,15 +30,12 @@ article{
 	background-color: rgb(255,255,255);
 	padding: 0.5vh;
 	margin-bottom: 1vh;
-	overflow:hidden
+	margin-left: 20vw;
+	width: 50vw;
+	overflow:hidden;
 }
 
-article p:nth-of-type(2) {
-	float: right;
-	margin: 0;
-}
 
 footer {
-	position: absolute;
 	bottom: 5vh;
 }

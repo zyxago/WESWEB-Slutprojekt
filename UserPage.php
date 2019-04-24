@@ -1,16 +1,36 @@
 <?php
 require "Connect/Connect.php";
 $_SESSION["site"] = "userPage";
-
+$user = $_SESSION["user"];
 if(!empty($_GET["action"]) && $_GET["action"] == "change") {
 	if(!empty($_POST["changeUser"])) {
 		if(!empty($_POST["username"])) {
-			
+			$newUsername = $_POST["username"];
+			if($sql = mysqli_prepare($conn, "UPDATE users SET username = ? WHERE username = ?")) {
+				mysqli_stmt_bind_param($sql, "ss", $newUsername, $user);
+				if(mysqli_stmt_execute($sql)) {
+					echo "Username changed!";
+					$_SESSION["user"] = $newUsername;
+				}
+				else {
+					echo "Failed to change username";
+					echo $conn->error;
+				}
+			}
 		}
 	}
 	if(!empty($_POST["changeEmail"])) {
 		if(!empty($_POST["email"])) {
-			
+			$newEmail = $_POST["email"];
+			if($sql = mysqli_prepare($conn, "UPDATE users SET email = ? WHERE username = ?")) {
+				mysqli_stmt_bind_param($sql, "ss", $newEmail, $user);
+				if(mysqli_stmt_execute($sql)) {
+					echo "Email changed!";
+				}
+				else {
+					echo "Failed to change email";
+				}
+			}
 		}
 	}
 }
