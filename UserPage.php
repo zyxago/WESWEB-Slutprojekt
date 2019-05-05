@@ -2,6 +2,7 @@
 require "Connect/Connect.php";
 $_SESSION["site"] = "userPage";
 $user = $_SESSION["user"];
+$admin = 0;
 if(!empty($_GET["action"]) && $_GET["action"] == "change") {
 	if(!empty($_POST["changeUser"])) {
 		if(!empty($_POST["username"])) {
@@ -34,6 +35,53 @@ if(!empty($_GET["action"]) && $_GET["action"] == "change") {
 		}
 	}
 }
+
+if(isset($_POST["ToRemove"])) {
+	$id = $_POST["ToRemove"];
+	$sql = "DELETE FROM article WHERE ID = '$id'";
+	if($conn->query($sql) === TRUE) {
+		echo "Removed Successfully!";
+	}
+	else {
+		echo "Error: {$conn->error}";
+	}
+}
+
+$sql = "SELECT admin
+FROM users
+WHERE '$user' = username";
+$result = $conn->query($sql);
+if(mysqli_num_rows($result) > 0) {
+	while($row = mysqli_fetch_assoc($result)) {
+		$admin = $row["admin"];
+	}
+}
+else {
+	echo $conn->error;
+}
+
+function GetArticles($admin, $conn) {
+if($admin == 1) {
+	$n = 0;
+	$articels = array();
+	$sql = "SELECT ID
+	FROM article";
+	$result = $conn->query($sql);
+	if(mysqli_num_rows($result)) {
+		while($row = mysqli_fetch_assoc($result)) {
+			$articles[$n] = $row["ID"];
+			$n++;
+		}
+	}
+	echo "<form action='UserPage.php' method='post' class='ArticleToRemove'>";
+	foreach($articles as $value) {
+		echo "<label for='{$value}'>Artikel: {$value}</label>";
+		echo "<input type='radio' value='{$value}' name='ToRemove'>";
+	}
+	echo "<input type='submit' value='Ta bort artikel'>";
+	echo "</form>";
+}
+}
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +97,10 @@ if(!empty($_GET["action"]) && $_GET["action"] == "change") {
 		require "Templates\Header.html";
 		require "Templates\Nav.php";
 		?>
-    <main>
+    <main class="userPage">
+		<?php
+		echo "<p>Hej {$_SESSION["user"]}!</p>";
+		?>
 		<p>Markera de uppgifter du vill ändra<p>
 		<form action="UserPage.php?action=change" method="post">
 			<label for="username">Användarnamn</label>
@@ -60,6 +111,11 @@ if(!empty($_GET["action"]) && $_GET["action"] == "change") {
 			<input type="checkbox" name="changeEmail" value="email"><br><br>
 			<input type="submit" value="Redigera">
 		</form>
+		<?php
+		if($admin == 1) {
+			GetArticles($admin, $conn);
+		}
+		?>
     </main>
 	<?php
 	require "Templates\Footer.html";

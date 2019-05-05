@@ -17,11 +17,9 @@ else if($_SESSION["site"] == "index" && !isset($_SESSION["user"])) {
 		  </nav>';
 	}
 else if($_SESSION["site"] == "LogOrReg") {
-	echo '<nav>
+	echo '<nav class="LogOrReg">
 			<ul>
 				<li><a href="Index.php">Startsidan</a>
-				<li><a href="LoginOrRegister.php?intent=Register">Registrera</a></li>
-				<li><a href="LoginOrRegister.php?intent=LoggaIn">Logga in</a></li>
 			</ul>
 		  </nav>';
 }

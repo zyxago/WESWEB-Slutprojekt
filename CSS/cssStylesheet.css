@@ -16,10 +16,13 @@ nav li{
 nav.NotLoggedIn li{
 	margin-left: 30vw;
 }
+nav.LogOrReg li{
+	margin-left: 45vw;
+}
 nav li a{
 	text-decoration: none;
 }
-.write form{
+.write{
 	padding-left: 15vw;
 }
 main {
@@ -34,8 +37,17 @@ article{
 	width: 50vw;
 	overflow:hidden;
 }
-
-
+main.userPage p{
+	margin-left: 40vw;
+}
+.userPage form {
+	margin-bottom: 5vh;
+	margin-left: 40vw;
+}
+form.ArticleToRemove input {
+	margin-right: 45vw;
+}
 footer {
-	bottom: 5vh;
+	margin-left: 1vw;
+	bottom: 1vh;
 }

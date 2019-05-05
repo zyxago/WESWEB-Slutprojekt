@@ -5,38 +5,44 @@ if(!empty($_GET["intent"]) && $_GET["intent"] == "out") {
 	unset($_SESSION["user"]);
 	header("Location: index.php");
 }
-if(!empty($_POST["+1"])) {
+if(isset($_POST["plus"])) {
+	$articleID = $_GET["article"];
 	$sql = "UPDATE article
 	SET points=points+1
-	WHERE ";//FIXA så att man får tag på rätt articleID.
+	WHERE $articleID = ID";
+	if($conn->query($sql) === TRUE) {
+		echo "YAY";
+	}
 }
-if(!empty($_POST["-1"])) {
+if(isset($_POST["minus"])) {
+	$articleID = $_GET["article"];
 	$sql = "UPDATE article
 	SET points=points-1
-	WHERE ";//FIXA så att man får tag på rätt articleID.
+	WHERE $articleID = ID";
 	if($conn->query($sql) === TRUE) {
 		echo "YAY";
 	}
 }
 if(!empty($_POST["comment"])) {
-	$user = $_SESSION["user"];
+	$userID = GetUserID($_SESSION["user"], $conn);
 	$articleID = $_GET["article"];
 	$comment = $_POST["comment"];
-	if($sql = mysqli_prepare($conn, "INSERT INTO comments(articleID, user, comment)
+	if($sql = mysqli_prepare($conn, "INSERT INTO comments(articleID, userID, comment)
 			VALUES (?, ?, ?)")) {
-				mysqli_stmt_bind_param($sql, "sss", $articleID, $user, $comment);//FIXA så att man får tag på rätt articleID.
+				mysqli_stmt_bind_param($sql, "sss", $articleID, $userID, $comment);
 				if(mysqli_stmt_execute($sql)) {
 					echo "Comment submittet";
 				}
 				else {
 					echo "Error commenting";
+					echo $conn->error;
 				}
 				mysqli_stmt_close($sql);
 	}
 }
 $n = 0;
 $articles = array(array("text"), array("score"), array("id"), array("userID"));
-$comments = array(array("comment"), array("articleID"), array("user"));
+$comments = array(array("comment"), array("articleID"), array("userID"));
 $sql = "SELECT *
 		FROM article";
 $result = $conn->query($sql);
@@ -57,8 +63,22 @@ if(mysqli_num_rows($result) > 0) {
 	while($row = mysqli_fetch_assoc($result)) {
 		$comments["comment"][$m] = $row["comment"];
 		$comments["articleID"][$m] = $row["articleID"];
-		$comments["user"][$m] = $row["user"];
+		$comments["userID"][$m] = $row["userID"];
 		$m++;
+	}
+}
+function GetUserID($username, $conn) {
+	$sql = "SELECT ID
+	FROM users
+	WHERE '$username' = username";
+	$result = $conn->query($sql);
+	if(mysqli_num_rows($result)) {
+		while($row = mysqli_fetch_assoc($result)) {
+			return $row["ID"];
+		}
+	}
+	else {
+		echo $conn->error;
 	}
 }
 function GetUsername($userID, $conn) {
@@ -68,7 +88,7 @@ function GetUsername($userID, $conn) {
 	$result = $conn->query($sql);
 	if(mysqli_num_rows($result)) {
 		while($row = mysqli_fetch_assoc($result)) {
-			echo "{$row["username"]}";
+			return $row["username"];
 		}
 	}
 	else {
@@ -81,18 +101,17 @@ function WriteArticle($n, $m, $articles, $comments, $conn) {
 			<p>{$articles["text"][$i]}<br><br>";
 		GetUsername($articles["userID"][$i], $conn);
 		echo "</p>";
-		echo $i;
 		if(isset($_SESSION["user"])) {
-			echo "<form action='Index.php?article=FIX' method='post'>
+			echo "<form action='Index.php?article={$articles["id"][$i]}' method='post'>
 			<input type='text' name='comment'>
 			<input type='submit' value='Kommentera'>
 			</from>";
 		}
 		echo "<p>Score: {$articles["score"][$i]}";
 		if(isset($_SESSION["user"])) {
-			echo "<form action='Index.php' method='post'>
-			<input type='submit' value='+1'>
-			<input type='submit' value='-1'>
+			echo "<form action='Index.php?article={$articles["id"][$i]}' method='post'>
+			<input type='submit' value='+1' name='plus'>
+			<input type='submit' value='-1' name='minus'>
 			</form></p>";
 		}
 		else {
@@ -100,7 +119,8 @@ function WriteArticle($n, $m, $articles, $comments, $conn) {
 		}
 			for($j = 0; $j < $m; $j++) {
 				if($articles["id"][$i] == $comments["articleID"][$j]) {
-					echo "<p>{$comments["user"][$j]}: {$comments["comment"][$j]}</p>";
+					$username = GetUsername($comments["userID"][$j], $conn);
+					echo "<p>{$username}: {$comments["comment"][$j]}</p>";
 				}
 			}
 		echo "</article>";
