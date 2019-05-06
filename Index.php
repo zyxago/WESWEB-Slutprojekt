@@ -1,10 +1,14 @@
 <?php
 require "Connect\Connect.php";
 $_SESSION["site"] = "index";
+
+//Loggar ut användaren
 if(!empty($_GET["intent"]) && $_GET["intent"] == "out") {
 	unset($_SESSION["user"]);
 	header("Location: index.php");
 }
+
+//Ger en artikel plus eller minus poäng
 if(isset($_POST["plus"])) {
 	$articleID = $_GET["article"];
 	$sql = "UPDATE article
@@ -23,6 +27,8 @@ if(isset($_POST["minus"])) {
 		echo "YAY";
 	}
 }
+
+//Lägger till en kommentar
 if(!empty($_POST["comment"])) {
 	$userID = GetUserID($_SESSION["user"], $conn);
 	$articleID = $_GET["article"];
@@ -40,6 +46,8 @@ if(!empty($_POST["comment"])) {
 				mysqli_stmt_close($sql);
 	}
 }
+
+//$n är array key "räkanre" för articles array
 $n = 0;
 $articles = array(array("text"), array("score"), array("id"), array("userID"));
 $comments = array(array("comment"), array("articleID"), array("userID"));
@@ -55,6 +63,8 @@ if (mysqli_num_rows($result) > 0) {
 		$n++;
 	}
 }
+
+//$m är array key "räkanre" fär comments array
 $m = 0;
 $sql = "SELECT *
 		FROM comments";
@@ -67,6 +77,8 @@ if(mysqli_num_rows($result) > 0) {
 		$m++;
 	}
 }
+
+//Hämtar användar id utifrån användarnamn
 function GetUserID($username, $conn) {
 	$sql = "SELECT ID
 	FROM users
@@ -81,6 +93,8 @@ function GetUserID($username, $conn) {
 		echo $conn->error;
 	}
 }
+
+//Hämtar användarnamn från användar id
 function GetUsername($userID, $conn) {
 	$sql = "SELECT username
 	FROM users
@@ -95,6 +109,8 @@ function GetUsername($userID, $conn) {
 		echo $conn->error;
 	}
 }
+
+//Skriver ut artiklar och kommentarer på artiklarna
 function WriteArticle($n, $m, $articles, $comments, $conn) {
 	for($i = 0; $i < $n; $i++) {
 		echo "<article>

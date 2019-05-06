@@ -1,9 +1,11 @@
-/* All css till websida ska ligga här */
+/*DIV css*/
 .wrapper {
 	margin-left: 1vw;
 	margin-right: 1vw;
 	background-color: rgb(255, 230, 179);
 }
+
+/*NAV css*/
 nav{
 	height: 5vh;
 }
@@ -13,21 +15,29 @@ nav li{
 	margin-left: 20vw;
 	border: solid black 2px;
 }
+nav li a{
+	text-decoration: none;
+}
+/* Beroende på vilken sida man är på så blir naven annorlunda */
 nav.NotLoggedIn li{
 	margin-left: 30vw;
 }
 nav.LogOrReg li{
 	margin-left: 45vw;
 }
-nav li a{
-	text-decoration: none;
+
+/*MAIN css*/
+main {
+	width: 90vw;
 }
 .write{
 	padding-left: 15vw;
 }
-main {
-	width: 90vw;
+main.userPage p{
+	margin-left: 40vw;
 }
+
+/*ARTICLE css*/
 article{
 	border: solid black 1px;
 	background-color: rgb(255,255,255);
@@ -37,9 +47,8 @@ article{
 	width: 50vw;
 	overflow:hidden;
 }
-main.userPage p{
-	margin-left: 40vw;
-}
+
+/*FORM css*/
 .userPage form {
 	margin-bottom: 5vh;
 	margin-left: 40vw;
@@ -47,6 +56,8 @@ main.userPage p{
 form.ArticleToRemove input {
 	margin-right: 45vw;
 }
+
+/*FOOTER css*/
 footer {
 	margin-left: 1vw;
 	bottom: 1vh;

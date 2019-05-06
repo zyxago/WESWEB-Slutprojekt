@@ -1,6 +1,8 @@
 <?php
 require "Connect\Connect.php";
 $_SESSION["site"] = "write";
+
+//Lägger till en artikel om man har skrivit en och submitat den
 if(!empty($_POST["text"])) {
 $user = $_SESSION["user"];
 $articleText = $_POST["text"];
@@ -47,7 +49,6 @@ $articleText = $_POST["text"];
 			</form>
 		</main>
 		<?php
-		//Ska komma i slutet på sidan
 		require "Templates\Footer.html";
 		?>
   </div>

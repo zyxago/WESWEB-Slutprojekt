@@ -3,7 +3,10 @@ require "Connect/Connect.php";
 $_SESSION["site"] = "userPage";
 $user = $_SESSION["user"];
 $admin = 0;
+
+//Ändrar specifierade användare uppgifter
 if(!empty($_GET["action"]) && $_GET["action"] == "change") {
+	//Ändrar användarnamn
 	if(!empty($_POST["changeUser"])) {
 		if(!empty($_POST["username"])) {
 			$newUsername = $_POST["username"];
@@ -20,6 +23,7 @@ if(!empty($_GET["action"]) && $_GET["action"] == "change") {
 			}
 		}
 	}
+	//Ändrar email
 	if(!empty($_POST["changeEmail"])) {
 		if(!empty($_POST["email"])) {
 			$newEmail = $_POST["email"];
@@ -36,6 +40,7 @@ if(!empty($_GET["action"]) && $_GET["action"] == "change") {
 	}
 }
 
+//Tar bort en markerad artikel
 if(isset($_POST["ToRemove"])) {
 	$id = $_POST["ToRemove"];
 	$sql = "DELETE FROM article WHERE ID = '$id'";
@@ -47,6 +52,7 @@ if(isset($_POST["ToRemove"])) {
 	}
 }
 
+//Hämtar användarens "admin" värde. 1 = admin, 0 = vanlig användare
 $sql = "SELECT admin
 FROM users
 WHERE '$user' = username";
@@ -60,6 +66,7 @@ else {
 	echo $conn->error;
 }
 
+//Hämtar artiklar som man kan ta bort om användaren är en admin
 function GetArticles($admin, $conn) {
 if($admin == 1) {
 	$n = 0;

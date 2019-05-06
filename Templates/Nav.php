@@ -7,7 +7,7 @@ if($_SESSION["site"] == "index" && isset($_SESSION["user"])) {
 				<li><a href="Index.php?intent=out">Logga ut</a></li>
 			</nav>';
 	}
-	//om man är på framsidan fast ej inloggad
+//om man är på framsidan fast ej inloggad
 else if($_SESSION["site"] == "index" && !isset($_SESSION["user"])) {
 	echo '<nav class="NotLoggedIn">
 			<ul>
@@ -16,6 +16,7 @@ else if($_SESSION["site"] == "index" && !isset($_SESSION["user"])) {
 			</ul>
 		  </nav>';
 	}
+//om man är på sidan för inloggning eller registrering
 else if($_SESSION["site"] == "LogOrReg") {
 	echo '<nav class="LogOrReg">
 			<ul>
@@ -23,6 +24,7 @@ else if($_SESSION["site"] == "LogOrReg") {
 			</ul>
 		  </nav>';
 }
+//om man är på sidan för att skriva artikel
 else if($_SESSION["site"] == "write") {
 	echo '<nav>
 			<ul>
@@ -32,6 +34,7 @@ else if($_SESSION["site"] == "write") {
 			</ul>
 		  </nav>';
 }
+//om man är på sidan för att ändra användarens uppgifter
 else if($_SESSION["site"] == "userPage") {
 	echo '<nav>
 			<ul>
@@ -41,5 +44,4 @@ else if($_SESSION["site"] == "userPage") {
 			</ul>
 		  </nav>';
 }
-//else if... om man är på andra sidor med andra nav menyer
 ?>

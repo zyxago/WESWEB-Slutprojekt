@@ -1,5 +1,6 @@
 <?php
-	session_start();
+//startar en session och ansluter till databasen
+ session_start();
 
  $dbhost = "localhost";
  $dbuser = "SlutprojektUser";

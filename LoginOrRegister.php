@@ -1,7 +1,10 @@
 <?php
 require "Connect\Connect.php";
 $_SESSION["site"] = "LogOrReg";
+
+//Lägger till ny användare eller hämtar existerande.
 if(!empty($_GET["action"])) {
+	//registrerar en ny användare
 	if($_GET["action"] == "register") {
 		if(!empty($_POST["username"]) && !empty($_POST["email"]) && !empty($_POST["password"])) {
 			$username = $_POST["username"];
@@ -20,6 +23,7 @@ if(!empty($_GET["action"])) {
 			}
 		}
 	}
+	//hämtar en existerande användare
 	else if($_GET["action"] == "login") {
 		if(!empty($_POST["username"]) && !empty($_POST["password"])) {
 			$username = $_POST["username"];
